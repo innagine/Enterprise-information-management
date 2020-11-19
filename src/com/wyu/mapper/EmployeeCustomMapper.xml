@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wyu.mapper.EmployeeCustomMapper">
+	<resultMap id="EmployeeCustomMap"
+		type="com.wyu.pojo.Employee">
+		<id column="id" property="id" />
+		<result column="dept_id" property="deptId" />
+		<result column="job_id" property="jobId" />
+		<result column="name" property="name" />
+		<result column="card_id" property="cardId" />
+		<result column="address" property="address" />
+		<result column="post_code" property="postCode" />
+		<result column="tel" property="tel" />
+		<result column="phone" property="phone" />
+		<result column="qq_num" property="qqNum" />
+		<result column="email" property="email" />
+		<result column="sex" property="sex" />
+		<result column="party" property="party" />
+		<result column="birthday" property="birthday" />
+		<result column="race" property="race" />
+		<result column="education" property="education" />
+		<result column="speciality" property="speciality" />
+		<result column="hobby" property="hobby" />
+		<result column="remark" property="remark" />
+		<result column="create_date" property="createDate" />
+		<association property="dept" javaType="com.wyu.pojo.Dept">
+			<id column="did" property="did" />
+    		<result column="d_name" property="dname"  />
+    		<result column="dremark" property="dremark" />
+		</association>
+		<association property="job" javaType="com.wyu.pojo.Job">
+			<id column="jid" property="jid" />
+			<result column="j_name" property="jname" />
+			<result column="jremark" property="jremark" />
+		</association>
+	</resultMap>
+
+
+
+	<select id="findEmployeeAndDeptAndJobName" resultMap="EmployeeCustomMap">
+		select
+		employee.id,
+		dept.dname as d_name,
+		job.jname as j_name,
+		employee.name,
+		employee.card_id,
+		employee.address,
+		employee.post_code,
+		employee.tel,
+		employee.phone,
+		employee.qq_num,
+		employee.email,
+		employee.sex,
+		employee.party,
+		employee.birthday,
+		employee.race,
+		employee.education,
+		employee.speciality,
+		employee.hobby,
+		employee.remark,
+		employee.create_date
+		from employee, dept, job
+		where employee.dept_id=dept.did and
+		employee.job_id=job.jid
+	</select>
+	
+	<select id="selectByExample" parameterType="com.wyu.pojo.Employee" resultMap="EmployeeCustomMap">
+		select
+		employee.id,
+		dept.dname as d_name,
+		job.jname as j_name,
+		employee.name,
+		employee.card_id,
+		employee.address,
+		employee.post_code,
+		employee.tel,
+		employee.phone,
+		employee.qq_num,
+		employee.email,
+		employee.sex,
+		employee.party,
+		employee.birthday,
+		employee.race,
+		employee.education,
+		employee.speciality,
+		employee.hobby,
+		employee.remark,
+		employee.create_date
+		from employee, dept, job
+		where employee.dept_id=dept.did and
+		employee.job_id=job.jid and
+		employee.name like "%"#{name}"%"
+	</select>
+
+
+
+</mapper>

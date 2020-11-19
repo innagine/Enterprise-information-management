@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wyu.mapper.UserCustomMapper">
+	<resultMap id="UserCustomMap" type="com.wyu.pojo.User">
+		<id column="number" property="number" />
+		<result column="password" property="password" />
+		<result column="role_id" property="roleId" />
+		<result column="phone" property="phone" />
+		<result column="createdate" property="createdate" />
+		<result column="username" property="username" />
+		<result column="remark" property="remark" />
+		<association property="role" javaType="com.wyu.pojo.Role">
+			<id column="rid" property="rid" />
+			<result column="r_name" property="rname" />
+			<result column="rremark" property="rremark" />
+		</association>
+	</resultMap>
+	<select id="findUserAndRoleName" resultMap="UserCustomMap">
+		select
+		user.number,
+		user.password,
+		role.rname as r_name,
+		user.phone,
+		user.createdate,
+		user.username,
+		user.remark
+		from user, role
+		where user.role_id=role.rid
+	</select>
+	<select id="selectByExample" parameterType="com.wyu.pojo.User" resultMap="UserCustomMap">
+		select
+		user.number,
+		user.password,
+		role.rname as r_name,
+		user.phone,
+		user.createdate,
+		user.username,
+		user.remark
+		from user, role
+		where user.role_id=role.rid and
+		user.number like "%"#{number}"%" and
+		user.username like "%"#{username}"%" and
+		user.phone like "%"#{phone}"%" and
+		user.role_id = #{roleId}
+	</select>
+
+
+</mapper>

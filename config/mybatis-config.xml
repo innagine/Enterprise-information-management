@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 和spring整合后 environments配置将废除-->
+	<environments default="development">
+		<environment id="development">
+		<!-- 使用jdbc事务管理-->
+			<transactionManager type="JDBC" />
+		<!-- 数据库连接池-->
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.cj.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost:3306/wyu201702?useSSL=true&amp;serverTimezone=GMT%2B8" />
+				<property name="username" value="root" />
+				<property name="password" value="735723058" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+	  <mapper resource="com/wyu/mapper/EmployeeMapper.xml"/>
+	  <mapper resource="com/wyu/mapper/JobMapper.xml"/>
+	  <mapper resource="com/wyu/mapper/UserMapper.xml"/>
+	  <mapper resource="com/wyu/mapper/DeptMapper.xml"/>
+	  <mapper resource="com/wyu/mapper/NoticeMapper.xml"/>
+	  <mapper resource="com/wyu/mapper/UploadfileMapper.xml"/>
+	  <mapper resource="com/wyu/mapper/RoleMapper.xml"/>
+	</mappers>
+</configuration>
